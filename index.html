@@ -45,6 +45,11 @@
             font-family: 'Bangers', 'Segoe UI Emoji', 'Noto Color Emoji', cursive;
         }
 
+        .font-inter {
+            font-family: 'Inter', 'Segoe UI Emoji', 'Noto Color Emoji', cursive;
+        }
+
+
         .comic-title-style {
             font-family: 'Bangers', 'Luckiest Guy', 'Segoe UI Emoji', 'Noto Color Emoji', cursive;
             letter-spacing: 0.06em;
@@ -512,13 +517,12 @@
             <!-- Top Corner Bars: Left Corner (Health) & Right Corner (Wave & Funds) -->
             <div class="flex justify-between items-start w-full">
                 <!-- Corner 1 (Top-Left): Small Country Health & Officer Health Banner -->
-                <div id="corner-health-banner"
-                    class="w-[160px] flex flex-col gap-1">
+                <div id="corner-health-banner" class="w-[100px] flex flex-col gap-1">
                     <!-- Country Health Header & Small Status -->
                     <div class="flex justify-between items-center text-[9px] font-bold leading-tight">
                         <span class="text-emerald-400 flex items-center gap-1">
 
-                            <span class="font-black text-slate-100 uppercase tracking-tight text-[8.5px]">COUNTRY</span>
+                            <span class="font-black text-slate-100 uppercase tracking-tight text-[8.5px]">Country</span>
                         </span>
                     </div>
                     <!-- Small Health Bar -->
@@ -530,48 +534,50 @@
                     <!-- Officer Health: Shields -->
                     <div
                         class="flex justify-between items-center text-[8.5px] font-bold text-slate-300 pt-0.5 leading-tight">
-                        <span class="flex items-center gap-0.5 text-blue-400 text-[8px]">
-                            <span>👮</span> OFFICER:
+                        <span class="flex items-center gap-0.5 text-blue-400 text-[12px]">
+                            Police:
                         </span>
                         <span id="hud-player-hp" class="text-[9px] tracking-tight">🛡️🛡️🛡️🛡️🛡️</span>
                     </div>
                 </div>
 
-                <!-- Corner 2 (Top-Right): Wave & Minimal In-Game Scorecard (Exact 3 Statistics) -->
-                <div class="flex items-center gap-1.5 pointer-events-none">
-                    <!-- Current Wave (Kept separate from scorecard for navigation) -->
-                    <div
-                        class="bg-blue-600/90 border border-blue-400/60 rounded-lg px-2 py-1 text-white shadow-lg flex items-center gap-1 leading-tight">
-                        <span class="text-[8px] font-black uppercase tracking-wider text-blue-200">WAVE</span>
-                        <span id="hud-wave" class="text-[10px] font-black font-mono text-yellow-300">1</span>
+                <!-- Corner 2 (Top-Right): Minimal In-Game Scorecard -->
+                <div id="ingame-scorecard"
+                    class="bg-transparent flex items-start gap-2 drop-shadow-sm pointer-events-none">
+                    <!-- COCKROACHES SQUASHED -->
+                    <div class="flex flex-col items-center leading-none pt-0.5" title="Cockroaches Squashed">
+                        <span
+                            class="text-[7px] text-emerald-300 uppercase font-black tracking-tight flex items-center gap-0.5">
+                            SQUASHED
+                        </span>
+                        <span id="hud-squashed" class="text-[10px] font-mono font-black text-white mt-0.5">0</span>
                     </div>
 
-                    <!-- In-Game Scorecard -->
-                    <div id="ingame-scorecard"
-                        class="bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-lg px-2.5 py-1 text-white shadow-lg flex items-center gap-2">
-                        <!-- COCKROACHES SQUASHED -->
-                        <div class="flex flex-col items-center leading-none" title="Cockroaches Squashed">
-                            <span
-                                class="text-[7px] text-emerald-300 uppercase font-black tracking-tight flex items-center gap-0.5">
-                                <span>🪳</span> SQUASHED
-                            </span>
-                            <span id="hud-squashed" class="text-[10px] font-mono font-black text-white mt-0.5">0</span>
-                        </div>
-                        <div class="w-[1px] h-4 bg-slate-700/70"></div>
+                    <div class="w-[1px] h-7 bg-slate-500/40 mt-0.5"></div>
+
+                    <!-- Boss & Wave Column (Wave div under Boss div) -->
+                    <div class="flex flex-col items-center gap-1">
                         <!-- BOSSES DEFEATED -->
                         <div class="flex flex-col items-center leading-none" title="Bosses Defeated">
                             <span
                                 class="text-[7px] text-yellow-300 uppercase font-black tracking-tight flex items-center gap-0.5">
-                                <span>🏆</span> BOSSES
+                                BOSSES
                             </span>
                             <span id="hud-bosses-defeated"
                                 class="text-[10px] font-mono font-black text-yellow-300 mt-0.5">0</span>
                         </div>
-                        <!-- Hidden legacy elements to preserve internal scripts if needed -->
-                        <span id="hud-survival-time" class="hidden">00:00</span>
-                        <span id="hud-kills" class="hidden">0</span>
-                        <span id="hud-score" class="hidden">0</span>
+
+                        <!-- Current Wave (under the boss div) -->
+                        <div class="flex items-center gap-1 leading-tight">
+                            <span class="text-[7.5px] font-black uppercase tracking-wider text-blue-200">WAVE</span>
+                            <span id="hud-wave" class="text-[10px] font-black font-mono text-yellow-300">1</span>
+                        </div>
                     </div>
+
+                    <!-- Hidden legacy elements to preserve internal scripts if needed -->
+                    <span id="hud-survival-time" class="hidden">00:00</span>
+                    <span id="hud-kills" class="hidden">0</span>
+                    <span id="hud-score" class="hidden">0</span>
                 </div>
             </div>
 
@@ -602,15 +608,14 @@
         <div id="bottom-controls"
             class="hidden absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none z-10 flex flex-col items-center gap-1 w-auto max-w-[390px]">
             <!-- Weapon Switcher & Action Dock -->
-            <div
-                class="pointer-events-auto flex items-center justify-center gap-1.5">
+            <div class="pointer-events-auto flex items-center justify-center gap-1.5">
                 <!-- Gun Button -->
                 <button id="btn-wpn-gun"
                     class="weapon-btn relative overflow-hidden flex items-center justify-between gap-1.5 px-2.5 py-1.5 rounded-xl text-[10px] font-black transition-all active:scale-95 border min-w-[85px] border-amber-400 bg-amber-950/70 text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.4)]"
                     title="Service Firearm [1 or G] (Click to Reload)">
                     <div class="flex items-center gap-1 z-10">
                         <span class="text-xs">🔫</span>
-                        <span class="tracking-wider">GUN</span>
+                        <span class="tracking-wider">Gun</span>
                     </div>
                     <span id="btn-wpn-gun-stat"
                         class="z-10 font-mono text-[9px] font-black px-1 py-0.5 rounded bg-black/50 text-white">100</span>
@@ -627,7 +632,7 @@
                     title="Riot Water Cannon [2 or W] (Click to Refill)">
                     <div class="flex items-center gap-1 z-10">
                         <span class="text-xs">🌊</span>
-                        <span class="tracking-wider">WATER</span>
+                        <span class="tracking-wider">Water</span>
                     </div>
                     <span id="btn-wpn-water-stat"
                         class="z-10 font-mono text-[9px] font-black px-1 py-0.5 rounded bg-black/50 text-slate-300">100</span>
@@ -644,7 +649,7 @@
                     title="Aerosol Bug Spray [3 or S] (Click to Refill)">
                     <div class="flex items-center gap-1 z-10">
                         <span class="text-xs">💨</span>
-                        <span class="tracking-wider">SPRAY</span>
+                        <span class="tracking-wider">Spray</span>
                     </div>
                     <span id="btn-wpn-spray-stat"
                         class="z-10 font-mono text-[9px] font-black px-1 py-0.5 rounded bg-black/50 text-slate-300">100</span>
@@ -660,7 +665,7 @@
                     class="hidden flex items-center gap-1 px-3 py-1.5 rounded-xl text-[10px] font-black transition-all active:scale-95 bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm border border-emerald-400/50 animate-pulse"
                     title="Drink Hot Garam Chai (+30% Health & +30% Country Health) (Key: C)">
                     <span class="text-xs">☕</span>
-                    <span class="tracking-wider">CHAI (<span id="chai-count">0</span>)</span>
+                    <span class="tracking-wider">(<span id="chai-count">0</span>)</span>
                 </button>
             </div>
         </div>
@@ -719,7 +724,8 @@
                     <div
                         class="relative w-full h-32 sm:h-36 max-h-[27vh] rounded-2xl overflow-hidden shadow-2xl bg-slate-950">
                         <!-- Code-Generated In-Game Giant German Cockroach Boss Model Canvas -->
-                        <canvas id="start-boss-canvas" class="w-full h-full block select-none transform transition-transform duration-700 ease-out group-hover:scale-105"></canvas>
+                        <canvas id="start-boss-canvas"
+                            class="w-full h-full block select-none transform transition-transform duration-700 ease-out group-hover:scale-105"></canvas>
                         <!-- Top specular glare highlight line -->
                         <div
                             class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-300/60 to-transparent pointer-events-none">
@@ -730,8 +736,7 @@
 
                 <!-- 3. Exact Game Story / Introduction Text (No border box) -->
                 <div class="w-full px-2 text-center flex-shrink-0">
-                    <p
-                        class="font-cursive text-[13px] sm:text-[17px] text-amber-200/95 leading-snug tracking-wide drop-shadow-sm">
+                    <p class="font-cursive sm:text-[22px] text-amber-200/95 leading-snug tracking-wide drop-shadow-sm">
                         Cockroaches are attacking the minister demanding resignation. You, as police, should
                         save the minister and the country
                     </p>
@@ -747,17 +752,18 @@
                 </div>
 
                 <!-- 3. Game Guide Text (No border box) -->
-                <div class="w-full text-left space-y-1 sm:space-y-1.5 flex-shrink-0 px-1">
-                    <div class="flex items-center gap-2 text-cyan-200 text-[10px] sm:text-[11.5px] font-semibold">
+                <div class="font-cursive w-full text-left space-y-1 sm:space-y-1.5 flex-shrink-0 px-1">
+                    <div class="flex items-center gap-2 text-cyan-200 text-[10px] sm:text-[16.5px] font-semibold">
                         <span class="text-xs sm:text-sm">🔫</span>
-                        <span class="flex-1 drop-shadow-sm">Use R gun, Water, Spray to resist Cockroaches</span>
+                        <span class=" flex-1 drop-shadow-sm">Use R gun, Water, Spray to resist
+                            Cockroaches</span>
                     </div>
-                    <div class="flex items-center gap-2 text-amber-200 text-[10px] sm:text-[11.5px] font-semibold">
+                    <div class="flex items-center gap-2 text-amber-200 text-[10px] sm:text-[16.5px] font-semibold">
                         <span class="text-xs sm:text-sm">☕</span>
                         <span class="flex-1 drop-shadow-sm">Drink Chai from Chaiwala to get health.</span>
                     </div>
                     <div
-                        class="flex items-center gap-2 text-yellow-300 text-[10px] sm:text-[11.5px] font-bold tracking-wide">
+                        class="flex items-center gap-2 text-yellow-300 text-[10px] sm:text-[16.5px] font-bold tracking-wide">
                         <span class="text-xs sm:text-sm">⏱️</span>
                         <span class="flex-1 drop-shadow-sm">How much time you can survive?</span>
                     </div>
@@ -783,7 +789,7 @@
                         GAME OVER
                     </p>
                     <p id="gameover-headline"
-                        class="text-[16px] text-slate-300 italic mt-1.5 sm:mt-2 bg-slate-900/90 p-2 rounded-xl border border-slate-800">
+                        class="font-inter   text-[16px] text-slate-300 italic mt-1.5 sm:mt-2 bg-slate-900/90 p-2 rounded-xl border border-slate-800">
                         "Country destroyed!! Cockroach swarm overruns the Country!"
                     </p>
                 </div>
@@ -964,7 +970,7 @@
                 <!-- Tiny Cockroach Crawling Across Victory Screen (Humorous Teaser) -->
                 <div
                     class="relative bg-slate-900/90 border border-slate-800 rounded-lg py-1 px-2 overflow-hidden flex items-center justify-between text-[10px]">
-                    <span class="text-slate-400 italic font-mono z-10">Boston Burger grease traps active in 14
+                    <span class="text-slate-400 italic font-mono z-10">Burger grease traps active in 14
                         districts... TO BE CONTINUED! 🍔</span>
                     <div id="crawling-teaser-roach"
                         class="absolute left-0 text-sm animate-[crawlingTeaser_12s_linear_infinite] pointer-events-none">
@@ -1062,7 +1068,7 @@
                             </button>
                             <button id="dev-btn-boss-burger"
                                 class="flex justify-between items-center bg-slate-800 hover:bg-slate-700 active:scale-98 border border-slate-700 hover:border-amber-400/60 p-2 rounded-lg transition-all text-left">
-                                <span class="font-bold text-slate-200">🍔 Boston Burger Titan</span>
+                                <span class="font-bold text-slate-200">🍔Burger Cockroach</span>
                                 <span
                                     class="font-mono text-[10px] text-amber-400 font-bold bg-slate-900 px-1.5 py-0.5 rounded">Wave
                                     7</span>
@@ -8996,7 +9002,7 @@
                 triggerHaptic([100, 50, 100, 50, 200]);
 
                 if (this.waveBannerContentEl) {
-                    this.waveBannerContentEl.textContent = "BURGER Cockroach ARRIVING!";
+                    this.waveBannerContentEl.textContent = "BURGER Cockroach";
                 }
                 if (this.waveBannerEl) {
                     this.waveBannerEl.classList.remove('hidden');
@@ -9551,7 +9557,7 @@
                     this.score += 25000;
                     this.addFloatingText(this.centerX, this.centerY, "+$25,000 TITAN SUBDUED BONUS!", "#38bdf8", 20);
                     if (this.waveBannerContentEl) {
-                        this.waveBannerContentEl.textContent = "🏆 BURGER TITAN SUBDUED! 🏆";
+                        this.waveBannerContentEl.textContent = "🏆 BURGER Cockroach SUBDUED! 🏆";
                     }
                     if (this.waveBannerEl) this.waveBannerEl.classList.remove('hidden');
 
@@ -11551,7 +11557,7 @@
                 triggerHaptic([80, 40, 80, 40, 200]);
 
                 if (this.waveBannerContentEl) {
-                    this.waveBannerContentEl.textContent = "🚨 CLASSIFIED THREAT: BONDVEER COCKROACH! 🚨";
+                    this.waveBannerContentEl.textContent = "BONDVEER COCKROACH coming";
                 }
                 if (this.waveBannerEl) this.waveBannerEl.classList.remove('hidden');
 
@@ -14514,8 +14520,8 @@
                 // 3. Dramatic Bio-Weapon Dossier Card
                 if (this.bondVeerIntroTimer < 2.6) {
                     ctx.save();
-                    const cardW = Math.min(330, this.width - 36);
-                    const cardH = 82;
+                    const cardW = Math.min(270, this.width - 36);
+                    const cardH = 34;
                     const cardX = this.centerX - cardW / 2;
                     const cardY = b.y + 64;
 
@@ -14529,19 +14535,10 @@
 
                     // Threat classification header
                     ctx.fillStyle = '#ef4444';
-                    ctx.font = '900 11px Inter, sans-serif';
+                    ctx.font = '900 11.5px Inter, sans-serif';
                     ctx.textAlign = 'center';
-                    ctx.fillText('🚨 CLASSIFIED BIO-WEAPON: TITAN COCKROACH 🚨', this.centerX, cardY + 22);
-
-                    // Name
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = '900 15px "Courier New", monospace';
-                    ctx.fillText('"BONDVEER: ARMORED APEX PREDATOR"', this.centerX, cardY + 47);
-
-                    // Weaponry Subtitle
-                    ctx.fillStyle = '#fbbf24';
-                    ctx.font = '900 11px Inter, sans-serif';
-                    ctx.fillText('INTEGRATED JETPACK • DUAL PLASMA CANNONS • BIO-CHITIN', this.centerX, cardY + 69);
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('BONDVEER MUTANT COCKROACH 🚨', this.centerX, cardY + cardH / 2);
                     ctx.restore();
                 }
 
@@ -15763,7 +15760,7 @@
                 // 3. Render the EXACT Giant German Cockroach Boss (Direct Game Model Code)
                 ctx.save();
                 ctx.translate(cx, cy);
-                
+
                 const bossScale = Math.min(1.05, (w / 380) * 1.05);
                 ctx.scale(bossScale, bossScale);
 
@@ -15955,7 +15952,7 @@
                 ctx.fill();
 
                 ctx.restore(); // End boss transform
-ctx.restore();
+                ctx.restore();
             }
 
             /**
