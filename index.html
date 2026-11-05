@@ -104,8 +104,8 @@
             position: absolute;
             right: calc(18px + env(safe-area-inset-right, 0px));
             bottom: calc(90px + env(safe-area-inset-bottom, 0px));
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             z-index: 25;
             pointer-events: none;
             touch-action: none;
@@ -8316,13 +8316,15 @@
                         ctx.fillStyle = laneGrad;
                         ctx.fillRect(0, -laneWidth / 2, laneLen, laneWidth);
 
-                        // Animated dashing outer hazard borders
-                        ctx.strokeStyle = b.isPunishAttack ? '#f43f5e' : '#f97316';
-                        ctx.lineWidth = b.isPunishAttack ? 3.5 : 2.5;
-                        ctx.setLineDash([14, 8]);
-                        ctx.lineDashOffset = -this.elapsedTime * 65;
-                        ctx.strokeRect(0, -laneWidth / 2, laneLen, laneWidth);
-                        ctx.setLineDash([]);
+                        // Animated dashing outer hazard borders (omitted during stationary punish charge)
+                        if (!b.isPunishAttack) {
+                            ctx.strokeStyle = '#f97316';
+                            ctx.lineWidth = 2.5;
+                            ctx.setLineDash([14, 8]);
+                            ctx.lineDashOffset = -this.elapsedTime * 65;
+                            ctx.strokeRect(0, -laneWidth / 2, laneLen, laneWidth);
+                            ctx.setLineDash([]);
+                        }
 
                         // Animated Streaming Chevrons (Flowing forward towards the police)
                         const streamOffset = (this.elapsedTime * 340) % 45;
